@@ -1,0 +1,12 @@
+dependencies {
+	compileOnly group: "org.osgi", name: "org.osgi.core"
+	compileOnly group: "org.osgi", name: "org.osgi.service.component.annotations"
+	
+	compileOnly group: "com.liferay.commerce", name: "com.liferay.commerce.api", version: "18.0.1"
+	compileOnly group: "com.liferay.commerce", name: "com.liferay.commerce.product.api", version: "18.0.2"
+	
+	compileOnly group: "com.liferay.portal", name: "com.liferay.portal.kernel"
+	
+	compileOnly project(":modules:commerce-training-car:commerce-training-car-api")
+	
+}
