@@ -5,6 +5,7 @@ import com.liferay.commerce.payment.engine.CommercePaymentEngine;
 import com.liferay.commerce.payment.engine.CommerceSubscriptionEngine;
 import com.liferay.commerce.payment.method.redsys.configuration.RedsysPaymentMethodCardGroupServiceConfiguration;
 import com.liferay.commerce.payment.method.redsys.constants.RedsysCommercePaymentMethodConstants;
+import com.liferay.commerce.payment.method.redsys.constants.RedsysTypeOfTransaction;
 import com.liferay.commerce.service.CommerceOrderService;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
@@ -107,9 +108,10 @@ public class RedsysCommercePaymentMethodServlet extends HttpServlet {
 						String merchantCode = paymentMethodCardGroupServiceConfiguration.merchantCode();
 						String terminal = paymentMethodCardGroupServiceConfiguration.terminal();
 						String typeTransaction = paymentMethodCardGroupServiceConfiguration.typeTransaction();
+						RedsysTypeOfTransaction transactionValue = RedsysTypeOfTransaction.valueOf(typeTransaction.toUpperCase());
 						
 						if(dsOrder.equalsIgnoreCase(order) && dsAmount.equals(amount) && dsMerchantCode.equalsIgnoreCase(merchantCode)
-								&& dsTerminal.equalsIgnoreCase(terminal) && dsTransactionType.equalsIgnoreCase(typeTransaction)) {
+								&& dsTerminal.equalsIgnoreCase("0".concat(terminal)) && dsTransactionType.equalsIgnoreCase(transactionValue.getTypeOfTransaction())) {
 							
 						_commercePaymentEngine.completePayment(commerceOrder.getCommerceOrderId(), null,
 								httpServletRequest);

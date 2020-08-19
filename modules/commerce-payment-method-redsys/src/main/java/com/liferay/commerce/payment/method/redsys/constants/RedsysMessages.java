@@ -6,7 +6,7 @@ package com.liferay.commerce.payment.method.redsys.constants;
  */
 public enum RedsysMessages {
 	
-	M0000("authorized-transaction-payments-and-pre-authorizations="),
+	M0000("authorized-transaction-payments-and-pre-authorizations"),
 	M0900("authorized-transaction-refund-and-confirmations"),
 	M0400("transaction-authorized-cancellations"),
 	M0101("expired-card"),
