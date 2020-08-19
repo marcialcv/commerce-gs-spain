@@ -1,4 +1,4 @@
-package com.liferay.commerce.payment.method.redsys.action.servlet;
+package com.liferay.commerce.payment.method.redsys.servlet;
 
 import com.liferay.commerce.model.CommerceOrder;
 import com.liferay.commerce.payment.engine.CommercePaymentEngine;
@@ -42,7 +42,7 @@ import sis.redsys.api.ApiMacSha256;
  */
 @Component(immediate = true, property = {
 		"osgi.http.whiteboard.context.path=/" + RedsysCommercePaymentMethodConstants.SERVLET_PATH,
-		"osgi.http.whiteboard.servlet.name=com.liferay.commerce.payment.method.redsys.action.servlet.RedsysCommercePaymentMethodServlet",
+		"osgi.http.whiteboard.servlet.name=com.liferay.commerce.payment.method.redsys.servlet.RedsysCommercePaymentMethodServlet",
 		"osgi.http.whiteboard.servlet.pattern=/" + RedsysCommercePaymentMethodConstants.SERVLET_PATH
 				+ "/*" }, service = Servlet.class)
 public class RedsysCommercePaymentMethodServlet extends HttpServlet {
