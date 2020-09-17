@@ -6,6 +6,7 @@ import com.liferay.portal.kernel.settings.GroupServiceSettingsLocator;
 import com.liferay.portal.kernel.settings.ModifiableSettings;
 import com.liferay.portal.kernel.settings.Settings;
 import com.liferay.portal.kernel.settings.SettingsFactory;
+import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.Constants;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.commerce.payment.method.redsys.constants.RedsysCommercePaymentMethodConstants;
@@ -47,49 +48,49 @@ public class EditRedsysCommercePaymentMethodConfigurationMVCActionCommand extend
 	private void _updateCommercePaymentMethod(ActionRequest actionRequest)
 			throws Exception {
 
-			long commerceChannelId = ParamUtil.getLong(
+		long commerceChannelId = ParamUtil.getLong(
 				actionRequest, RedsysCommercePaymentMethodConstants.COMMERCE_CHANNEL_ID);
 
-			CommerceChannel commerceChannel =
+		CommerceChannel commerceChannel =
 				_commerceChannelService.getCommerceChannel(commerceChannelId);
 
-			Settings settings = _settingsFactory.getSettings(
+		Settings settings = _settingsFactory.getSettings(
 				new GroupServiceSettingsLocator(
-					commerceChannel.getGroupId(),
-					RedsysCommercePaymentMethodConstants.SERVICE_NAME));
+						commerceChannel.getGroupId(),
+						RedsysCommercePaymentMethodConstants.SERVICE_NAME));
 
-			ModifiableSettings modifiableSettings =
+		ModifiableSettings modifiableSettings =
 				settings.getModifiableSettings();
 
-			String dsSignatureVersion = ParamUtil.getString(
+		String dsSignatureVersion = ParamUtil.getString(
 				actionRequest, RedsysCommercePaymentMethodConstants.SETTINGS_DS_SIGNATURE_VERSION);
 
-			modifiableSettings.setValue("dsSignatureVersion", dsSignatureVersion);
+		modifiableSettings.setValue("dsSignatureVersion", dsSignatureVersion);
 
-			String clientSecret = ParamUtil.getString(
+		String clientSecret = ParamUtil.getString(
 				actionRequest, RedsysCommercePaymentMethodConstants.SETTINGS_CLIENT_SECRET);
 
-			modifiableSettings.setValue("clientSecret", clientSecret);
+		modifiableSettings.setValue("clientSecret", clientSecret);
 
-			String mode = ParamUtil.getString(actionRequest,  RedsysCommercePaymentMethodConstants.SETTINGS_MODE);
+		String mode = ParamUtil.getString(actionRequest, RedsysCommercePaymentMethodConstants.SETTINGS_MODE);
 
-			modifiableSettings.setValue("mode", mode);
+		modifiableSettings.setValue("mode", mode);
 
-			String merchantCode = ParamUtil.getString(
-				actionRequest,  RedsysCommercePaymentMethodConstants.SETTINGS_MERCHANT_CODE);
+		String merchantCode = ParamUtil.getString(
+				actionRequest, RedsysCommercePaymentMethodConstants.SETTINGS_MERCHANT_CODE);
 
-			modifiableSettings.setValue("merchantCode", merchantCode);
-			
-			String terminal = ParamUtil.getString(actionRequest, RedsysCommercePaymentMethodConstants.SETTINGS_TERMINAL);
-			
-			modifiableSettings.setValue("terminal", terminal);
-			
-			String typeTransaction = ParamUtil.getString(actionRequest, RedsysCommercePaymentMethodConstants.SETTINGS_TYPES_OF_TRANSACTION);
-			
-			modifiableSettings.setValue("typeTransaction", typeTransaction);
+		modifiableSettings.setValue("merchantCode", merchantCode);
 
-			modifiableSettings.store();
-		}
+		String terminal = ParamUtil.getString(actionRequest, RedsysCommercePaymentMethodConstants.SETTINGS_TERMINAL);
+
+		modifiableSettings.setValue("terminal", terminal);
+
+		String typeTransaction = ParamUtil.getString(actionRequest, RedsysCommercePaymentMethodConstants.SETTINGS_TYPES_OF_TRANSACTION);
+
+		modifiableSettings.setValue("typeTransaction", typeTransaction);
+
+		modifiableSettings.store();
+	}
 
 		@Reference
 		private CommerceChannelService _commerceChannelService;

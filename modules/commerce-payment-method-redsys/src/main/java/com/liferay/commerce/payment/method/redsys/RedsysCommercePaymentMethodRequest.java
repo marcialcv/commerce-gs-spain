@@ -1,5 +1,6 @@
 package com.liferay.commerce.payment.method.redsys;
 
+import aQute.bnd.annotation.component.Component;
 import com.liferay.commerce.payment.request.CommercePaymentRequest;
 
 import java.math.BigDecimal;
@@ -12,8 +13,6 @@ import javax.servlet.http.HttpServletRequest;
  *
  */
 public class RedsysCommercePaymentMethodRequest extends CommercePaymentRequest  {
-
-	private static final long serialVersionUID = 1L;
 
 	public RedsysCommercePaymentMethodRequest(
 			BigDecimal amount, String cancelUrl, long commerceOrderId, Locale locale,

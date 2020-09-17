@@ -12,6 +12,7 @@ dependencies {
 
 buildService {
 	apiDir = "../commerce-training-car-api/src/main/java"
+	testDir = "../commerce-training-car-test/src/testIntegration/java"
 }
 
 group = "commerce.training.car.garage"
