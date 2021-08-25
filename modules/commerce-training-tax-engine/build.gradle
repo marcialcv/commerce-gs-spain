@@ -1,6 +1,4 @@
 dependencies {
-	compileOnly group: "com.liferay.portal", name: "release.portal.api",version:"7.1.1"
-
 	compileOnly group: "com.liferay.portal", name: "release.portal.api", version: "7.4.2-ga3"
 
 	compileOnly group: "biz.aQute.bnd", name: "biz.aQute.bndlib", version: "3.5.0"
