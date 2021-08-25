@@ -24,8 +24,10 @@ import java.util.List;
  * This class is used by SOAP remote services.
  *
  * @author Roselaine Marques
+ * @deprecated As of Athanasius (7.3.x), with no direct replacement
  * @generated
  */
+@Deprecated
 public class CarGarageSoap implements Serializable {
 
 	public static CarGarageSoap toSoapModel(CarGarage model) {

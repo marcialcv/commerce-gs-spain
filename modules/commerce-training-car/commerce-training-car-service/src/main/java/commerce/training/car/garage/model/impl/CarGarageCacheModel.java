@@ -37,16 +37,16 @@ public class CarGarageCacheModel
 	implements CacheModel<CarGarage>, Externalizable {
 
 	@Override
-	public boolean equals(Object obj) {
-		if (this == obj) {
+	public boolean equals(Object object) {
+		if (this == object) {
 			return true;
 		}
 
-		if (!(obj instanceof CarGarageCacheModel)) {
+		if (!(object instanceof CarGarageCacheModel)) {
 			return false;
 		}
 
-		CarGarageCacheModel carGarageCacheModel = (CarGarageCacheModel)obj;
+		CarGarageCacheModel carGarageCacheModel = (CarGarageCacheModel)object;
 
 		if (carGarageId == carGarageCacheModel.carGarageId) {
 			return true;

@@ -171,7 +171,7 @@ public class CommerceTrainingShippingEngine implements CommerceShippingEngine {
 
 		return _commerceAddressRestrictionLocalService.isCommerceShippingMethodRestricted(
 			commerceShippingFixedOption.getCommerceShippingMethodId(),
-			commerceAddress.getCommerceCountryId());
+			commerceAddress.getCountryId());
 	}
 	
 	private static final Log _log =

@@ -1,9 +1,9 @@
 
 package com.liferay.training.product.display;
 
-import com.liferay.commerce.product.definitions.web.display.context.BaseCPDefinitionsDisplayContext;
-import com.liferay.commerce.product.definitions.web.portlet.action.ActionHelper;
+import com.liferay.commerce.product.display.context.BaseCPDefinitionsDisplayContext;
 import com.liferay.commerce.product.model.CPDefinition;
+import com.liferay.commerce.product.portlet.action.ActionHelper;
 import com.liferay.commerce.product.service.CPDefinitionLocalService;
 import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.exception.PortalException;

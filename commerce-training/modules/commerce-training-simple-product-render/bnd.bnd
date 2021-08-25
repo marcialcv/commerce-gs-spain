@@ -1,4 +1,0 @@
-Bundle-Name: commerce-training-simple-product-render
-Bundle-SymbolicName: commerce.training.simple.product.render
-Bundle-Version: 1.0.0
-Web-ContextPath: /commerce-training-product-render-simple

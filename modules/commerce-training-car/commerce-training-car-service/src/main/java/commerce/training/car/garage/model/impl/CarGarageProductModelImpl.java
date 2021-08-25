@@ -45,6 +45,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.Objects;
 import java.util.function.BiConsumer;
 import java.util.function.Function;
 
@@ -112,22 +113,49 @@ public class CarGarageProductModelImpl
 
 	public static final String TX_MANAGER = "liferayTransactionManager";
 
+	/**
+	 * @deprecated As of Athanasius (7.3.x), replaced by {@link #getColumnBitmask(String)}
+	 */
+	@Deprecated
 	public static final long CARGARAGEID_COLUMN_BITMASK = 1L;
 
+	/**
+	 * @deprecated As of Athanasius (7.3.x), replaced by {@link #getColumnBitmask(String)}
+	 */
+	@Deprecated
 	public static final long COMPANYID_COLUMN_BITMASK = 2L;
 
+	/**
+	 * @deprecated As of Athanasius (7.3.x), replaced by {@link #getColumnBitmask(String)}
+	 */
+	@Deprecated
 	public static final long GROUPID_COLUMN_BITMASK = 4L;
 
+	/**
+	 * @deprecated As of Athanasius (7.3.x), replaced by {@link #getColumnBitmask(String)}
+	 */
+	@Deprecated
 	public static final long UUID_COLUMN_BITMASK = 8L;
 
+	/**
+	 * @deprecated As of Athanasius (7.3.x), replaced by {@link
+	 *		#getColumnBitmask(String)}
+	 */
+	@Deprecated
 	public static final long CPDEFINITIONID_COLUMN_BITMASK = 16L;
 
+	/**
+	 * @deprecated As of Athanasius (7.3.x), with no direct replacement
+	 */
+	@Deprecated
 	public static void setEntityCacheEnabled(boolean entityCacheEnabled) {
-		_entityCacheEnabled = entityCacheEnabled;
 	}
 
+	/**
+	 * @deprecated As of Athanasius (7.3.x), with no direct replacement
+	 */
+	@Deprecated
 	public static void setFinderCacheEnabled(boolean finderCacheEnabled) {
-		_finderCacheEnabled = finderCacheEnabled;
 	}
 
 	public CarGarageProductModelImpl() {
@@ -181,9 +209,6 @@ public class CarGarageProductModelImpl
 				attributeName,
 				attributeGetterFunction.apply((CarGarageProduct)this));
 		}
-
-		attributes.put("entityCacheEnabled", isEntityCacheEnabled());
-		attributes.put("finderCacheEnabled", isFinderCacheEnabled());
 
 		return attributes;
 	}
@@ -334,17 +359,20 @@ public class CarGarageProductModelImpl
 
 	@Override
 	public void setUuid(String uuid) {
-		_columnBitmask |= UUID_COLUMN_BITMASK;
-
-		if (_originalUuid == null) {
-			_originalUuid = _uuid;
+		if (_columnOriginalValues == Collections.EMPTY_MAP) {
+			_setColumnOriginalValues();
 		}
 
 		_uuid = uuid;
 	}
 
+	/**
+	 * @deprecated As of Athanasius (7.3.x), replaced by {@link
+	 *             #getColumnOriginalValue(String)}
+	 */
+	@Deprecated
 	public String getOriginalUuid() {
-		return GetterUtil.getString(_originalUuid);
+		return getColumnOriginalValue("uuid_");
 	}
 
 	@Override
@@ -354,6 +382,10 @@ public class CarGarageProductModelImpl
 
 	@Override
 	public void setCarGarageProductId(long carGarageProductId) {
+		if (_columnOriginalValues == Collections.EMPTY_MAP) {
+			_setColumnOriginalValues();
+		}
+
 		_carGarageProductId = carGarageProductId;
 	}
 
@@ -364,19 +396,20 @@ public class CarGarageProductModelImpl
 
 	@Override
 	public void setGroupId(long groupId) {
-		_columnBitmask |= GROUPID_COLUMN_BITMASK;
-
-		if (!_setOriginalGroupId) {
-			_setOriginalGroupId = true;
-
-			_originalGroupId = _groupId;
+		if (_columnOriginalValues == Collections.EMPTY_MAP) {
+			_setColumnOriginalValues();
 		}
 
 		_groupId = groupId;
 	}
 
+	/**
+	 * @deprecated As of Athanasius (7.3.x), replaced by {@link
+	 *             #getColumnOriginalValue(String)}
+	 */
+	@Deprecated
 	public long getOriginalGroupId() {
-		return _originalGroupId;
+		return GetterUtil.getLong(this.<Long>getColumnOriginalValue("groupId"));
 	}
 
 	@Override
@@ -386,19 +419,21 @@ public class CarGarageProductModelImpl
 
 	@Override
 	public void setCompanyId(long companyId) {
-		_columnBitmask |= COMPANYID_COLUMN_BITMASK;
-
-		if (!_setOriginalCompanyId) {
-			_setOriginalCompanyId = true;
-
-			_originalCompanyId = _companyId;
+		if (_columnOriginalValues == Collections.EMPTY_MAP) {
+			_setColumnOriginalValues();
 		}
 
 		_companyId = companyId;
 	}
 
+	/**
+	 * @deprecated As of Athanasius (7.3.x), replaced by {@link
+	 *             #getColumnOriginalValue(String)}
+	 */
+	@Deprecated
 	public long getOriginalCompanyId() {
-		return _originalCompanyId;
+		return GetterUtil.getLong(
+			this.<Long>getColumnOriginalValue("companyId"));
 	}
 
 	@Override
@@ -408,6 +443,10 @@ public class CarGarageProductModelImpl
 
 	@Override
 	public void setUserId(long userId) {
+		if (_columnOriginalValues == Collections.EMPTY_MAP) {
+			_setColumnOriginalValues();
+		}
+
 		_userId = userId;
 	}
 
@@ -439,6 +478,10 @@ public class CarGarageProductModelImpl
 
 	@Override
 	public void setUserName(String userName) {
+		if (_columnOriginalValues == Collections.EMPTY_MAP) {
+			_setColumnOriginalValues();
+		}
+
 		_userName = userName;
 	}
 
@@ -449,6 +492,10 @@ public class CarGarageProductModelImpl
 
 	@Override
 	public void setCreateDate(Date createDate) {
+		if (_columnOriginalValues == Collections.EMPTY_MAP) {
+			_setColumnOriginalValues();
+		}
+
 		_createDate = createDate;
 	}
 
@@ -465,6 +512,10 @@ public class CarGarageProductModelImpl
 	public void setModifiedDate(Date modifiedDate) {
 		_setModifiedDate = true;
 
+		if (_columnOriginalValues == Collections.EMPTY_MAP) {
+			_setColumnOriginalValues();
+		}
+
 		_modifiedDate = modifiedDate;
 	}
 
@@ -475,19 +526,21 @@ public class CarGarageProductModelImpl
 
 	@Override
 	public void setCarGarageId(long carGarageId) {
-		_columnBitmask |= CARGARAGEID_COLUMN_BITMASK;
-
-		if (!_setOriginalCarGarageId) {
-			_setOriginalCarGarageId = true;
-
-			_originalCarGarageId = _carGarageId;
+		if (_columnOriginalValues == Collections.EMPTY_MAP) {
+			_setColumnOriginalValues();
 		}
 
 		_carGarageId = carGarageId;
 	}
 
+	/**
+	 * @deprecated As of Athanasius (7.3.x), replaced by {@link
+	 *             #getColumnOriginalValue(String)}
+	 */
+	@Deprecated
 	public long getOriginalCarGarageId() {
-		return _originalCarGarageId;
+		return GetterUtil.getLong(
+			this.<Long>getColumnOriginalValue("carGarageId"));
 	}
 
 	@Override
@@ -497,7 +550,9 @@ public class CarGarageProductModelImpl
 
 	@Override
 	public void setCpDefinitionId(long cpDefinitionId) {
-		_columnBitmask = -1L;
+		if (_columnOriginalValues == Collections.EMPTY_MAP) {
+			_setColumnOriginalValues();
+		}
 
 		_cpDefinitionId = cpDefinitionId;
 	}
@@ -514,6 +569,10 @@ public class CarGarageProductModelImpl
 
 	@Override
 	public void setTitle(String title) {
+		if (_columnOriginalValues == Collections.EMPTY_MAP) {
+			_setColumnOriginalValues();
+		}
+
 		_title = title;
 	}
 
@@ -524,6 +583,26 @@ public class CarGarageProductModelImpl
 	}
 
 	public long getColumnBitmask() {
+		if (_columnBitmask > 0) {
+			return _columnBitmask;
+		}
+
+		if ((_columnOriginalValues == null) ||
+			(_columnOriginalValues == Collections.EMPTY_MAP)) {
+
+			return 0;
+		}
+
+		for (Map.Entry<String, Object> entry :
+				_columnOriginalValues.entrySet()) {
+
+			if (!Objects.equals(
+					entry.getValue(), getColumnValue(entry.getKey()))) {
+
+				_columnBitmask |= _columnBitmasks.get(entry.getKey());
+			}
+		}
+
 		return _columnBitmask;
 	}
 
@@ -598,16 +677,16 @@ public class CarGarageProductModelImpl
 	}
 
 	@Override
-	public boolean equals(Object obj) {
-		if (this == obj) {
+	public boolean equals(Object object) {
+		if (this == object) {
 			return true;
 		}
 
-		if (!(obj instanceof CarGarageProduct)) {
+		if (!(object instanceof CarGarageProduct)) {
 			return false;
 		}
 
-		CarGarageProduct carGarageProduct = (CarGarageProduct)obj;
+		CarGarageProduct carGarageProduct = (CarGarageProduct)object;
 
 		long primaryKey = carGarageProduct.getPrimaryKey();
 
@@ -624,41 +703,31 @@ public class CarGarageProductModelImpl
 		return (int)getPrimaryKey();
 	}
 
+	/**
+	 * @deprecated As of Athanasius (7.3.x), with no direct replacement
+	 */
+	@Deprecated
 	@Override
 	public boolean isEntityCacheEnabled() {
-		return _entityCacheEnabled;
+		return true;
 	}
 
+	/**
+	 * @deprecated As of Athanasius (7.3.x), with no direct replacement
+	 */
+	@Deprecated
 	@Override
 	public boolean isFinderCacheEnabled() {
-		return _finderCacheEnabled;
+		return true;
 	}
 
 	@Override
 	public void resetOriginalValues() {
-		CarGarageProductModelImpl carGarageProductModelImpl = this;
+		_columnOriginalValues = Collections.emptyMap();
 
-		carGarageProductModelImpl._originalUuid =
-			carGarageProductModelImpl._uuid;
+		_setModifiedDate = false;
 
-		carGarageProductModelImpl._originalGroupId =
-			carGarageProductModelImpl._groupId;
-
-		carGarageProductModelImpl._setOriginalGroupId = false;
-
-		carGarageProductModelImpl._originalCompanyId =
-			carGarageProductModelImpl._companyId;
-
-		carGarageProductModelImpl._setOriginalCompanyId = false;
-
-		carGarageProductModelImpl._setModifiedDate = false;
-
-		carGarageProductModelImpl._originalCarGarageId =
-			carGarageProductModelImpl._carGarageId;
-
-		carGarageProductModelImpl._setOriginalCarGarageId = false;
-
-		carGarageProductModelImpl._columnBitmask = 0;
+		_columnBitmask = 0;
 	}
 
 	@Override
@@ -729,7 +798,7 @@ public class CarGarageProductModelImpl
 			attributeGetterFunctions = getAttributeGetterFunctions();
 
 		StringBundler sb = new StringBundler(
-			4 * attributeGetterFunctions.size() + 2);
+			(4 * attributeGetterFunctions.size()) + 2);
 
 		sb.append("{");
 
@@ -761,7 +830,7 @@ public class CarGarageProductModelImpl
 			attributeGetterFunctions = getAttributeGetterFunctions();
 
 		StringBundler sb = new StringBundler(
-			5 * attributeGetterFunctions.size() + 4);
+			(5 * attributeGetterFunctions.size()) + 4);
 
 		sb.append("<model><model-name>");
 		sb.append(getModelClassName());
@@ -793,28 +862,107 @@ public class CarGarageProductModelImpl
 
 	}
 
-	private static boolean _entityCacheEnabled;
-	private static boolean _finderCacheEnabled;
-
 	private String _uuid;
-	private String _originalUuid;
 	private long _carGarageProductId;
 	private long _groupId;
-	private long _originalGroupId;
-	private boolean _setOriginalGroupId;
 	private long _companyId;
-	private long _originalCompanyId;
-	private boolean _setOriginalCompanyId;
 	private long _userId;
 	private String _userName;
 	private Date _createDate;
 	private Date _modifiedDate;
 	private boolean _setModifiedDate;
 	private long _carGarageId;
-	private long _originalCarGarageId;
-	private boolean _setOriginalCarGarageId;
 	private long _cpDefinitionId;
 	private String _title;
+
+	public <T> T getColumnValue(String columnName) {
+		columnName = _attributeNames.getOrDefault(columnName, columnName);
+
+		Function<CarGarageProduct, Object> function =
+			_attributeGetterFunctions.get(columnName);
+
+		if (function == null) {
+			throw new IllegalArgumentException(
+				"No attribute getter function found for " + columnName);
+		}
+
+		return (T)function.apply((CarGarageProduct)this);
+	}
+
+	public <T> T getColumnOriginalValue(String columnName) {
+		if (_columnOriginalValues == null) {
+			return null;
+		}
+
+		if (_columnOriginalValues == Collections.EMPTY_MAP) {
+			_setColumnOriginalValues();
+		}
+
+		return (T)_columnOriginalValues.get(columnName);
+	}
+
+	private void _setColumnOriginalValues() {
+		_columnOriginalValues = new HashMap<String, Object>();
+
+		_columnOriginalValues.put("uuid_", _uuid);
+		_columnOriginalValues.put("carGarageProductId", _carGarageProductId);
+		_columnOriginalValues.put("groupId", _groupId);
+		_columnOriginalValues.put("companyId", _companyId);
+		_columnOriginalValues.put("userId", _userId);
+		_columnOriginalValues.put("userName", _userName);
+		_columnOriginalValues.put("createDate", _createDate);
+		_columnOriginalValues.put("modifiedDate", _modifiedDate);
+		_columnOriginalValues.put("carGarageId", _carGarageId);
+		_columnOriginalValues.put("cpDefinitionId", _cpDefinitionId);
+		_columnOriginalValues.put("title", _title);
+	}
+
+	private static final Map<String, String> _attributeNames;
+
+	static {
+		Map<String, String> attributeNames = new HashMap<>();
+
+		attributeNames.put("uuid_", "uuid");
+
+		_attributeNames = Collections.unmodifiableMap(attributeNames);
+	}
+
+	private transient Map<String, Object> _columnOriginalValues;
+
+	public static long getColumnBitmask(String columnName) {
+		return _columnBitmasks.get(columnName);
+	}
+
+	private static final Map<String, Long> _columnBitmasks;
+
+	static {
+		Map<String, Long> columnBitmasks = new HashMap<>();
+
+		columnBitmasks.put("uuid_", 1L);
+
+		columnBitmasks.put("carGarageProductId", 2L);
+
+		columnBitmasks.put("groupId", 4L);
+
+		columnBitmasks.put("companyId", 8L);
+
+		columnBitmasks.put("userId", 16L);
+
+		columnBitmasks.put("userName", 32L);
+
+		columnBitmasks.put("createDate", 64L);
+
+		columnBitmasks.put("modifiedDate", 128L);
+
+		columnBitmasks.put("carGarageId", 256L);
+
+		columnBitmasks.put("cpDefinitionId", 512L);
+
+		columnBitmasks.put("title", 1024L);
+
+		_columnBitmasks = Collections.unmodifiableMap(columnBitmasks);
+	}
+
 	private long _columnBitmask;
 	private CarGarageProduct _escapedModel;
 

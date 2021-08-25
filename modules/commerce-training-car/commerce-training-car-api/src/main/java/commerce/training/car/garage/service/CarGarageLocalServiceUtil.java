@@ -14,9 +14,17 @@
 
 package commerce.training.car.garage.service;
 
-import org.osgi.framework.Bundle;
-import org.osgi.framework.FrameworkUtil;
-import org.osgi.util.tracker.ServiceTracker;
+import com.liferay.petra.sql.dsl.query.DSLQuery;
+import com.liferay.portal.kernel.dao.orm.DynamicQuery;
+import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.model.PersistedModel;
+import com.liferay.portal.kernel.util.OrderByComparator;
+
+import commerce.training.car.garage.model.CarGarage;
+
+import java.io.Serializable;
+
+import java.util.List;
 
 /**
  * Provides the local service utility for CarGarage. This utility wraps
@@ -41,12 +49,14 @@ public class CarGarageLocalServiceUtil {
 	/**
 	 * Adds the car garage to the database. Also notifies the appropriate model listeners.
 	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect CarGarageLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
+	 *
 	 * @param carGarage the car garage
 	 * @return the car garage that was added
 	 */
-	public static commerce.training.car.garage.model.CarGarage addCarGarage(
-		commerce.training.car.garage.model.CarGarage carGarage) {
-
+	public static CarGarage addCarGarage(CarGarage carGarage) {
 		return getService().addCarGarage(carGarage);
 	}
 
@@ -61,11 +71,11 @@ public class CarGarageLocalServiceUtil {
 	 * @return CarGarage
 	 * @exception PortalException
 	 */
-	public static commerce.training.car.garage.model.CarGarage addCarGarage(
+	public static CarGarage addCarGarage(
 			String title, double latitude, double longitude,
 			long cpDefinitionId,
 			com.liferay.portal.kernel.service.ServiceContext serviceContext)
-		throws com.liferay.portal.kernel.exception.PortalException {
+		throws PortalException {
 
 		return getService().addCarGarage(
 			title, latitude, longitude, cpDefinitionId, serviceContext);
@@ -77,34 +87,47 @@ public class CarGarageLocalServiceUtil {
 	 * @param carGarageId the primary key for the new car garage
 	 * @return the new car garage
 	 */
-	public static commerce.training.car.garage.model.CarGarage createCarGarage(
-		long carGarageId) {
-
+	public static CarGarage createCarGarage(long carGarageId) {
 		return getService().createCarGarage(carGarageId);
+	}
+
+	/**
+	 * @throws PortalException
+	 */
+	public static PersistedModel createPersistedModel(
+			Serializable primaryKeyObj)
+		throws PortalException {
+
+		return getService().createPersistedModel(primaryKeyObj);
 	}
 
 	/**
 	 * Deletes the car garage from the database. Also notifies the appropriate model listeners.
 	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect CarGarageLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
+	 *
 	 * @param carGarage the car garage
 	 * @return the car garage that was removed
 	 */
-	public static commerce.training.car.garage.model.CarGarage deleteCarGarage(
-		commerce.training.car.garage.model.CarGarage carGarage) {
-
+	public static CarGarage deleteCarGarage(CarGarage carGarage) {
 		return getService().deleteCarGarage(carGarage);
 	}
 
 	/**
 	 * Deletes the car garage with the primary key from the database. Also notifies the appropriate model listeners.
 	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect CarGarageLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
+	 *
 	 * @param carGarageId the primary key of the car garage
 	 * @return the car garage that was removed
 	 * @throws PortalException if a car garage with the primary key could not be found
 	 */
-	public static commerce.training.car.garage.model.CarGarage deleteCarGarage(
-			long carGarageId)
-		throws com.liferay.portal.kernel.exception.PortalException {
+	public static CarGarage deleteCarGarage(long carGarageId)
+		throws PortalException {
 
 		return getService().deleteCarGarage(carGarageId);
 	}
@@ -112,17 +135,22 @@ public class CarGarageLocalServiceUtil {
 	/**
 	 * @throws PortalException
 	 */
-	public static com.liferay.portal.kernel.model.PersistedModel
-			deletePersistedModel(
-				com.liferay.portal.kernel.model.PersistedModel persistedModel)
-		throws com.liferay.portal.kernel.exception.PortalException {
+	public static PersistedModel deletePersistedModel(
+			PersistedModel persistedModel)
+		throws PortalException {
 
 		return getService().deletePersistedModel(persistedModel);
 	}
 
-	public static com.liferay.portal.kernel.dao.orm.DynamicQuery
-		dynamicQuery() {
+	public static <T> T dslQuery(DSLQuery dslQuery) {
+		return getService().dslQuery(dslQuery);
+	}
 
+	public static int dslQueryCount(DSLQuery dslQuery) {
+		return getService().dslQueryCount(dslQuery);
+	}
+
+	public static DynamicQuery dynamicQuery() {
 		return getService().dynamicQuery();
 	}
 
@@ -132,9 +160,7 @@ public class CarGarageLocalServiceUtil {
 	 * @param dynamicQuery the dynamic query
 	 * @return the matching rows
 	 */
-	public static <T> java.util.List<T> dynamicQuery(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery) {
-
+	public static <T> List<T> dynamicQuery(DynamicQuery dynamicQuery) {
 		return getService().dynamicQuery(dynamicQuery);
 	}
 
@@ -150,9 +176,8 @@ public class CarGarageLocalServiceUtil {
 	 * @param end the upper bound of the range of model instances (not inclusive)
 	 * @return the range of matching rows
 	 */
-	public static <T> java.util.List<T> dynamicQuery(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery, int start,
-		int end) {
+	public static <T> List<T> dynamicQuery(
+		DynamicQuery dynamicQuery, int start, int end) {
 
 		return getService().dynamicQuery(dynamicQuery, start, end);
 	}
@@ -170,10 +195,9 @@ public class CarGarageLocalServiceUtil {
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
 	 * @return the ordered range of matching rows
 	 */
-	public static <T> java.util.List<T> dynamicQuery(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery, int start,
-		int end,
-		com.liferay.portal.kernel.util.OrderByComparator<T> orderByComparator) {
+	public static <T> List<T> dynamicQuery(
+		DynamicQuery dynamicQuery, int start, int end,
+		OrderByComparator<T> orderByComparator) {
 
 		return getService().dynamicQuery(
 			dynamicQuery, start, end, orderByComparator);
@@ -185,9 +209,7 @@ public class CarGarageLocalServiceUtil {
 	 * @param dynamicQuery the dynamic query
 	 * @return the number of rows matching the dynamic query
 	 */
-	public static long dynamicQueryCount(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery) {
-
+	public static long dynamicQueryCount(DynamicQuery dynamicQuery) {
 		return getService().dynamicQueryCount(dynamicQuery);
 	}
 
@@ -199,21 +221,17 @@ public class CarGarageLocalServiceUtil {
 	 * @return the number of rows matching the dynamic query
 	 */
 	public static long dynamicQueryCount(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery,
+		DynamicQuery dynamicQuery,
 		com.liferay.portal.kernel.dao.orm.Projection projection) {
 
 		return getService().dynamicQueryCount(dynamicQuery, projection);
 	}
 
-	public static commerce.training.car.garage.model.CarGarage
-		fetchByCPDefinitionId(long cpDefinitionId) {
-
+	public static CarGarage fetchByCPDefinitionId(long cpDefinitionId) {
 		return getService().fetchByCPDefinitionId(cpDefinitionId);
 	}
 
-	public static commerce.training.car.garage.model.CarGarage fetchCarGarage(
-		long carGarageId) {
-
+	public static CarGarage fetchCarGarage(long carGarageId) {
 		return getService().fetchCarGarage(carGarageId);
 	}
 
@@ -224,21 +242,19 @@ public class CarGarageLocalServiceUtil {
 	 * @param groupId the primary key of the group
 	 * @return the matching car garage, or <code>null</code> if a matching car garage could not be found
 	 */
-	public static commerce.training.car.garage.model.CarGarage
-		fetchCarGarageByUuidAndGroupId(String uuid, long groupId) {
+	public static CarGarage fetchCarGarageByUuidAndGroupId(
+		String uuid, long groupId) {
 
 		return getService().fetchCarGarageByUuidAndGroupId(uuid, groupId);
 	}
 
-	public static commerce.training.car.garage.model.CarGarage
-			findByCPDefinitionId(long cpDefinitionId)
+	public static CarGarage findByCPDefinitionId(long cpDefinitionId)
 		throws commerce.training.car.garage.exception.NoSuchCarGarageException {
 
 		return getService().findByCPDefinitionId(cpDefinitionId);
 	}
 
-	public static commerce.training.car.garage.model.CarGarage findByPrimaryKey(
-			long carGarageId)
+	public static CarGarage findByPrimaryKey(long carGarageId)
 		throws commerce.training.car.garage.exception.NoSuchCarGarageException {
 
 		return getService().findByPrimaryKey(carGarageId);
@@ -257,9 +273,8 @@ public class CarGarageLocalServiceUtil {
 	 * @return the car garage
 	 * @throws PortalException if a car garage with the primary key could not be found
 	 */
-	public static commerce.training.car.garage.model.CarGarage getCarGarage(
-			long carGarageId)
-		throws com.liferay.portal.kernel.exception.PortalException {
+	public static CarGarage getCarGarage(long carGarageId)
+		throws PortalException {
 
 		return getService().getCarGarage(carGarageId);
 	}
@@ -272,9 +287,9 @@ public class CarGarageLocalServiceUtil {
 	 * @return the matching car garage
 	 * @throws PortalException if a matching car garage could not be found
 	 */
-	public static commerce.training.car.garage.model.CarGarage
-			getCarGarageByUuidAndGroupId(String uuid, long groupId)
-		throws com.liferay.portal.kernel.exception.PortalException {
+	public static CarGarage getCarGarageByUuidAndGroupId(
+			String uuid, long groupId)
+		throws PortalException {
 
 		return getService().getCarGarageByUuidAndGroupId(uuid, groupId);
 	}
@@ -290,9 +305,7 @@ public class CarGarageLocalServiceUtil {
 	 * @param end the upper bound of the range of car garages (not inclusive)
 	 * @return the range of car garages
 	 */
-	public static java.util.List<commerce.training.car.garage.model.CarGarage>
-		getCarGarages(int start, int end) {
-
+	public static List<CarGarage> getCarGarages(int start, int end) {
 		return getService().getCarGarages(start, end);
 	}
 
@@ -303,8 +316,8 @@ public class CarGarageLocalServiceUtil {
 	 * @param companyId the primary key of the company
 	 * @return the matching car garages, or an empty list if no matches were found
 	 */
-	public static java.util.List<commerce.training.car.garage.model.CarGarage>
-		getCarGaragesByUuidAndCompanyId(String uuid, long companyId) {
+	public static List<CarGarage> getCarGaragesByUuidAndCompanyId(
+		String uuid, long companyId) {
 
 		return getService().getCarGaragesByUuidAndCompanyId(uuid, companyId);
 	}
@@ -319,12 +332,9 @@ public class CarGarageLocalServiceUtil {
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
 	 * @return the range of matching car garages, or an empty list if no matches were found
 	 */
-	public static java.util.List<commerce.training.car.garage.model.CarGarage>
-		getCarGaragesByUuidAndCompanyId(
-			String uuid, long companyId, int start, int end,
-			com.liferay.portal.kernel.util.OrderByComparator
-				<commerce.training.car.garage.model.CarGarage>
-					orderByComparator) {
+	public static List<CarGarage> getCarGaragesByUuidAndCompanyId(
+		String uuid, long companyId, int start, int end,
+		OrderByComparator<CarGarage> orderByComparator) {
 
 		return getService().getCarGaragesByUuidAndCompanyId(
 			uuid, companyId, start, end, orderByComparator);
@@ -366,9 +376,8 @@ public class CarGarageLocalServiceUtil {
 	/**
 	 * @throws PortalException
 	 */
-	public static com.liferay.portal.kernel.model.PersistedModel
-			getPersistedModel(java.io.Serializable primaryKeyObj)
-		throws com.liferay.portal.kernel.exception.PortalException {
+	public static PersistedModel getPersistedModel(Serializable primaryKeyObj)
+		throws PortalException {
 
 		return getService().getPersistedModel(primaryKeyObj);
 	}
@@ -376,35 +385,21 @@ public class CarGarageLocalServiceUtil {
 	/**
 	 * Updates the car garage in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
 	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect CarGarageLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
+	 *
 	 * @param carGarage the car garage
 	 * @return the car garage that was updated
 	 */
-	public static commerce.training.car.garage.model.CarGarage updateCarGarage(
-		commerce.training.car.garage.model.CarGarage carGarage) {
-
+	public static CarGarage updateCarGarage(CarGarage carGarage) {
 		return getService().updateCarGarage(carGarage);
 	}
 
 	public static CarGarageLocalService getService() {
-		return _serviceTracker.getService();
+		return _service;
 	}
 
-	private static ServiceTracker<CarGarageLocalService, CarGarageLocalService>
-		_serviceTracker;
-
-	static {
-		Bundle bundle = FrameworkUtil.getBundle(CarGarageLocalService.class);
-
-		ServiceTracker<CarGarageLocalService, CarGarageLocalService>
-			serviceTracker =
-				new ServiceTracker
-					<CarGarageLocalService, CarGarageLocalService>(
-						bundle.getBundleContext(), CarGarageLocalService.class,
-						null);
-
-		serviceTracker.open();
-
-		_serviceTracker = serviceTracker;
-	}
+	private static volatile CarGarageLocalService _service;
 
 }

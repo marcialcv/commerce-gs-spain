@@ -1,8 +1,8 @@
 
 package com.liferay.training.servlet.taglib.ui;
 
-import com.liferay.commerce.product.definitions.web.portlet.action.ActionHelper;
 import com.liferay.commerce.product.model.CPDefinition;
+import com.liferay.commerce.product.portlet.action.ActionHelper;
 import com.liferay.commerce.product.service.CPDefinitionLocalService;
 import com.liferay.frontend.taglib.servlet.taglib.ScreenNavigationCategory;
 import com.liferay.frontend.taglib.servlet.taglib.ScreenNavigationEntry;
@@ -12,7 +12,7 @@ import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.util.ResourceBundleUtil;
-import com.liferay.portal.util.WebKeys;
+import com.liferay.portal.kernel.util.WebKeys;
 import com.liferay.training.product.display.VehicleServiceDisplayContext;
 
 import java.io.IOException;
@@ -151,7 +151,7 @@ public class VehicleServiceScreenNavigationEntry
 	 * We declare a unique value for Web-ContextPath in our bnd.bnd file so the ServletContext is 
 	 * correctly generated. In our example, Web-ContextPath is set to /commerce-training-product-type. See bnd.bnd for 
 	 * a reference on these values.
-	 */
+	 */ 
 	@Reference(target = "(osgi.web.symbolicname=commerce.training.product.type)")
 	private ServletContext _servletContext;
 

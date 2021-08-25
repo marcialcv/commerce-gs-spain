@@ -35,6 +35,10 @@ public class CarGarageLocalServiceWrapper
 	/**
 	 * Adds the car garage to the database. Also notifies the appropriate model listeners.
 	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect CarGarageLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
+	 *
 	 * @param carGarage the car garage
 	 * @return the car garage that was added
 	 */
@@ -81,7 +85,22 @@ public class CarGarageLocalServiceWrapper
 	}
 
 	/**
+	 * @throws PortalException
+	 */
+	@Override
+	public com.liferay.portal.kernel.model.PersistedModel createPersistedModel(
+			java.io.Serializable primaryKeyObj)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _carGarageLocalService.createPersistedModel(primaryKeyObj);
+	}
+
+	/**
 	 * Deletes the car garage from the database. Also notifies the appropriate model listeners.
+	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect CarGarageLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
 	 *
 	 * @param carGarage the car garage
 	 * @return the car garage that was removed
@@ -95,6 +114,10 @@ public class CarGarageLocalServiceWrapper
 
 	/**
 	 * Deletes the car garage with the primary key from the database. Also notifies the appropriate model listeners.
+	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect CarGarageLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
 	 *
 	 * @param carGarageId the primary key of the car garage
 	 * @return the car garage that was removed
@@ -117,6 +140,18 @@ public class CarGarageLocalServiceWrapper
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return _carGarageLocalService.deletePersistedModel(persistedModel);
+	}
+
+	@Override
+	public <T> T dslQuery(com.liferay.petra.sql.dsl.query.DSLQuery dslQuery) {
+		return _carGarageLocalService.dslQuery(dslQuery);
+	}
+
+	@Override
+	public int dslQueryCount(
+		com.liferay.petra.sql.dsl.query.DSLQuery dslQuery) {
+
+		return _carGarageLocalService.dslQueryCount(dslQuery);
 	}
 
 	@Override
@@ -398,6 +433,10 @@ public class CarGarageLocalServiceWrapper
 
 	/**
 	 * Updates the car garage in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
+	 *
+	 * <p>
+	 * <strong>Important:</strong> Inspect CarGarageLocalServiceImpl for overloaded versions of the method. If provided, use these entry points to the API, as the implementation logic may require the additional parameters defined there.
+	 * </p>
 	 *
 	 * @param carGarage the car garage
 	 * @return the car garage that was updated

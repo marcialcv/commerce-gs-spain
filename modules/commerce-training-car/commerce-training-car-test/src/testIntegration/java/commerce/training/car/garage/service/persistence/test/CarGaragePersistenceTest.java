@@ -21,6 +21,7 @@ import com.liferay.portal.kernel.dao.orm.DynamicQueryFactoryUtil;
 import com.liferay.portal.kernel.dao.orm.ProjectionFactoryUtil;
 import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.dao.orm.RestrictionsFactoryUtil;
+import com.liferay.portal.kernel.dao.orm.Session;
 import com.liferay.portal.kernel.test.AssertUtils;
 import com.liferay.portal.kernel.test.ReflectionTestUtil;
 import com.liferay.portal.kernel.test.rule.AggregateTestRule;
@@ -47,7 +48,6 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Set;
 
 import org.junit.After;
@@ -469,24 +469,67 @@ public class CarGaragePersistenceTest {
 
 		_persistence.clearCache();
 
-		CarGarage existingCarGarage = _persistence.findByPrimaryKey(
-			newCarGarage.getPrimaryKey());
+		_assertOriginalValues(
+			_persistence.findByPrimaryKey(newCarGarage.getPrimaryKey()));
+	}
 
-		Assert.assertTrue(
-			Objects.equals(
-				existingCarGarage.getUuid(),
-				ReflectionTestUtil.invoke(
-					existingCarGarage, "getOriginalUuid", new Class<?>[0])));
+	@Test
+	public void testResetOriginalValuesWithDynamicQueryLoadFromDatabase()
+		throws Exception {
+
+		_testResetOriginalValuesWithDynamicQuery(true);
+	}
+
+	@Test
+	public void testResetOriginalValuesWithDynamicQueryLoadFromSession()
+		throws Exception {
+
+		_testResetOriginalValuesWithDynamicQuery(false);
+	}
+
+	private void _testResetOriginalValuesWithDynamicQuery(boolean clearSession)
+		throws Exception {
+
+		CarGarage newCarGarage = addCarGarage();
+
+		if (clearSession) {
+			Session session = _persistence.openSession();
+
+			session.flush();
+
+			session.clear();
+		}
+
+		DynamicQuery dynamicQuery = DynamicQueryFactoryUtil.forClass(
+			CarGarage.class, _dynamicQueryClassLoader);
+
+		dynamicQuery.add(
+			RestrictionsFactoryUtil.eq(
+				"carGarageId", newCarGarage.getCarGarageId()));
+
+		List<CarGarage> result = _persistence.findWithDynamicQuery(
+			dynamicQuery);
+
+		_assertOriginalValues(result.get(0));
+	}
+
+	private void _assertOriginalValues(CarGarage carGarage) {
 		Assert.assertEquals(
-			Long.valueOf(existingCarGarage.getGroupId()),
+			carGarage.getUuid(),
+			ReflectionTestUtil.invoke(
+				carGarage, "getColumnOriginalValue",
+				new Class<?>[] {String.class}, "uuid_"));
+		Assert.assertEquals(
+			Long.valueOf(carGarage.getGroupId()),
 			ReflectionTestUtil.<Long>invoke(
-				existingCarGarage, "getOriginalGroupId", new Class<?>[0]));
+				carGarage, "getColumnOriginalValue",
+				new Class<?>[] {String.class}, "groupId"));
 
 		Assert.assertEquals(
-			Long.valueOf(existingCarGarage.getCpDefinitionId()),
+			Long.valueOf(carGarage.getCpDefinitionId()),
 			ReflectionTestUtil.<Long>invoke(
-				existingCarGarage, "getOriginalCpDefinitionId",
-				new Class<?>[0]));
+				carGarage, "getColumnOriginalValue",
+				new Class<?>[] {String.class}, "cpDefinitionId"));
 	}
 
 	protected CarGarage addCarGarage() throws Exception {
